@@ -1,0 +1,552 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registration Successful - Exclusive Event</title>
+    <!-- SweetAlert2 CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
+    <!-- Animate.css -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: #333;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .success-container {
+            background: white;
+            border-radius: 20px;
+            padding: 60px 40px;
+            text-align: center;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            max-width: 800px;
+            width: 100%;
+            animation: fadeInUp 0.8s ease;
+        }
+
+        .success-icon {
+            font-size: 4rem;
+            margin-bottom: 20px;
+        }
+
+        .success-container h1 {
+            color: #27ae60;
+            margin-bottom: 20px;
+            font-size: 2.5rem;
+        }
+
+        .success-container p {
+            font-size: 1.2rem;
+            margin-bottom: 30px;
+            color: #555;
+            line-height: 1.6;
+        }
+
+        .user-details {
+            background: #f8f9fa;
+            border-radius: 15px;
+            padding: 25px;
+            margin: 30px 0;
+            text-align: left;
+        }
+
+        .user-details h3 {
+            color: #667eea;
+            margin-bottom: 20px;
+            text-align: center;
+            border-bottom: 2px solid #e0e0e0;
+            padding-bottom: 10px;
+        }
+
+        .details-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 15px;
+        }
+
+        .detail-item {
+            display: flex;
+            flex-direction: column;
+            padding: 10px;
+            background: white;
+            border-radius: 8px;
+            border-left: 4px solid #667eea;
+        }
+
+        .detail-label {
+            font-weight: 600;
+            color: #555;
+            font-size: 0.9rem;
+            margin-bottom: 5px;
+        }
+
+        .detail-value {
+            color: #333;
+            font-size: 1rem;
+            font-weight: 500;
+        }
+
+        .confirmation-details {
+            background: #f8f9fa;
+            border-radius: 15px;
+            padding: 25px;
+            margin: 30px 0;
+            text-align: left;
+        }
+
+        .confirmation-details h3 {
+            color: #667eea;
+            margin-bottom: 15px;
+            text-align: center;
+            border-bottom: 2px solid #e0e0e0;
+            padding-bottom: 10px;
+        }
+
+        .next-steps {
+            display: grid;
+            gap: 15px;
+        }
+
+        .step-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 15px;
+            padding: 10px;
+        }
+
+        .step-icon {
+            font-size: 1.5rem;
+            min-width: 30px;
+        }
+
+        .step-content {
+            flex: 1;
+        }
+
+        .step-title {
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 5px;
+        }
+
+        .step-description {
+            color: #666;
+            font-size: 0.95rem;
+        }
+
+        .action-buttons {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-top: 30px;
+        }
+
+        .btn {
+            padding: 12px 30px;
+            border: none;
+            border-radius: 8px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+        }
+
+        .btn-secondary {
+            background: #e0e0e0;
+            color: #333;
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+
+        /* Protection Styles */
+        .protection-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: transparent;
+            z-index: 9999;
+            display: none;
+        }
+        
+        .protection-message {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: rgba(0, 0, 0, 0.9);
+            color: white;
+            padding: 20px;
+            border-radius: 10px;
+            text-align: center;
+            z-index: 10000;
+            display: none;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .success-container {
+                padding: 40px 20px;
+            }
+            
+            .success-container h1 {
+                font-size: 2rem;
+            }
+            
+            .action-buttons {
+                flex-direction: column;
+            }
+            
+            .btn {
+                width: 100%;
+                text-align: center;
+            }
+            
+            .details-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Protection Overlay -->
+    <div class="protection-overlay" id="protectionOverlay"></div>
+    <div class="protection-message" id="protectionMessage">
+        <h3>⛔ Access Restricted</h3>
+        <p>This action is not allowed on this page.</p>
+        <p>If you’d like to see the source code, feel free to reach out to <strong>Rizky Maulana</strong>.</p>
+    </div>
+
+    <div class="success-container">
+        <div class="success-icon">🎉</div>
+        <h1>Registration Successful!</h1>
+        <p>Thank you for your registration! We will contact you soon.</p>
+        
+        <!-- User Details Section -->
+        <div class="user-details">
+            <h3>Your Registration Details</h3>
+            <div class="details-grid" id="userDetailsGrid">
+                <!-- Data akan diisi oleh JavaScript -->
+            </div>
+        </div>
+
+        <!-- What's Next Section -->
+        <div class="confirmation-details">
+            <h3>What's Next?</h3>
+            <div class="next-steps">
+                <div class="step-item">
+                    <div class="step-icon">📧</div>
+                    <div class="step-content">
+                        <div class="step-title">Email Confirmation</div>
+                        <div class="step-description">Confirmation email will be sent to <strong id="userEmail">your email</strong> within 24 hours</div>
+                    </div>
+                </div>
+                <div class="step-item">
+                    <div class="step-icon">📞</div>
+                    <div class="step-content">
+                        <div class="step-title">Contact Verification</div>
+                        <div class="step-description">Our team will reach out to <strong id="userMobile">your mobile number</strong> in 2-3 business days</div>
+                    </div>
+                </div>
+                <div class="step-item">
+                    <div class="step-icon">📍</div>
+                    <div class="step-content">
+                        <div class="step-title">Event Details</div>
+                        <div class="step-description">Detailed venue information and invitation will be sent to your registered address in <strong id="userCity">your city</strong></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="action-buttons">
+            <a href="home.html" class="btn btn-primary">Back to Home</a>
+            <a href="#" class="btn btn-secondary" onclick="downloadTicket()">Download Ticket</a>
+        </div>
+
+        <p style="margin-top: 20px; font-size: 0.9rem; color: #777;">
+            For any questions, contact us at:<br>
+            <strong>info@exclusive-events.com</strong> or <strong>+62 21 1234 5678</strong>
+        </p>
+    </div>
+
+    <!-- SweetAlert2 JS -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script>
+        // ==================== PROTECTION SYSTEM ====================
+        const protectionOverlay = document.getElementById('protectionOverlay');
+        const protectionMessage = document.getElementById('protectionMessage');
+
+        function showProtectionWarning() {
+            protectionOverlay.style.display = 'block';
+            protectionMessage.style.display = 'block';
+            
+            setTimeout(() => {
+                protectionOverlay.style.display = 'none';
+                protectionMessage.style.display = 'none';
+            }, 2000);
+        }
+
+        // 1. Disable Klik Kanan
+        document.addEventListener('contextmenu', function(e) {
+            e.preventDefault();
+            showProtectionWarning();
+            return false;
+        });
+
+        // 2. Disable Keyboard Shortcuts
+        document.addEventListener('keydown', function(e) {
+            const disabledKeys = [
+                'F12',
+                'I', 'J', 'C', 'U', 'K', 'E' // dengan kombinasi Ctrl+Shift
+            ];
+
+            if (e.key === 'F12' || 
+                (e.ctrlKey && e.shiftKey && disabledKeys.includes(e.key))) {
+                e.preventDefault();
+                showProtectionWarning();
+                return false;
+            }
+
+            if (e.ctrlKey && e.key === 'u') {
+                e.preventDefault();
+                showProtectionWarning();
+                return false;
+            }
+        });
+
+        // 3. Developer Tools Detection
+        function detectDevTools() {
+            const widthThreshold = 160;
+            const heightThreshold = 160;
+            
+            if (window.outerWidth - window.innerWidth > widthThreshold || 
+                window.outerHeight - window.innerHeight > heightThreshold) {
+                showProtectionWarning();
+                setTimeout(() => {
+                    window.location.reload();
+                }, 1000);
+            }
+        }
+
+        setInterval(detectDevTools, 1000);
+
+        // 4. Disable Text Selection
+        document.addEventListener('selectstart', function(e) {
+            e.preventDefault();
+            return false;
+        });
+
+        // 5. Anti-Iframe
+        if (window.top !== window.self) {
+            window.top.location = window.self.location;
+        }
+
+        // ==================== SUCCESS PAGE LOGIC ====================
+        const displayMapping = {
+            'fullName': { label: 'Title', format: (value) => value },
+            'careOf': { label: 'Care Of', format: (value) => value.charAt(0).toUpperCase() + value.slice(1) },
+            'fatherName': { label: "Father's Name", format: (value) => value },
+            'motherName': { label: "Mother's Name", format: (value) => value },
+            'gender': { label: 'Gender', format: (value) => value.charAt(0).toUpperCase() + value.slice(1) },
+            'maritalStatus': { label: 'Marital Status', format: (value) => value },
+            'category': { label: 'Category', format: (value) => value },
+            'handicapped': { label: 'Handicapped', format: (value) => value === 'yes' ? 'Yes' : 'No' },
+            'exServiceman': { label: 'Ex-Serviceman', format: (value) => value === 'yes' ? 'Yes' : 'No' },
+            'ews': { label: 'EWS', format: (value) => value === 'yes' ? 'Yes' : 'No' },
+            'religion': { label: 'Religion', format: (value) => value },
+            'mobileNumber': { label: 'Mobile Number', format: (value) => value },
+            'email': { label: 'Email ID', format: (value) => value },
+            'address1': { label: 'Address Line 1', format: (value) => value },
+            'address2': { label: 'Address Line 2', format: (value) => value || 'Not provided' },
+            'city': { label: 'City', format: (value) => value },
+            'state': { label: 'State', format: (value) => value },
+            'pinCode': { label: 'Pin Code', format: (value) => value }
+        };
+
+        // Ambil data dari localStorage
+        document.addEventListener('DOMContentLoaded', () => {
+            const savedData = localStorage.getItem('registrationData');
+            
+            if (savedData) {
+                const userData = JSON.parse(savedData);
+                displayUserData(userData);
+                updateContactInfo(userData);
+            } else {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Data Not Found',
+                    text: 'No registration data found. Please complete the registration form first.',
+                    showClass: {
+                        popup: 'animate__animated animate__fadeInDown'
+                    },
+                    hideClass: {
+                        popup: 'animate__animated animate__fadeOutDown'
+                    },
+                    confirmButtonColor: '#667eea'
+                }).then(() => {
+                    window.location.href = 'index.html';
+                });
+            }
+        });
+
+        // Fungsi untuk menampilkan data user
+        function displayUserData(userData) {
+            const userDetailsGrid = document.getElementById('userDetailsGrid');
+            userDetailsGrid.innerHTML = '';
+
+            const importantFields = ['fullName', 'gender', 'mobileNumber', 'email', 'city', 'state'];
+            
+            importantFields.forEach(field => {
+                if (userData[field]) {
+                    const displayInfo = displayMapping[field];
+                    const detailItem = document.createElement('div');
+                    detailItem.className = 'detail-item';
+                    detailItem.innerHTML = `
+                        <div class="detail-label">${displayInfo.label}</div>
+                        <div class="detail-value">${displayInfo.format(userData[field])}</div>
+                    `;
+                    userDetailsGrid.appendChild(detailItem);
+                }
+            });
+
+            Object.keys(userData).forEach(field => {
+                if (!importantFields.includes(field) && displayMapping[field]) {
+                    const displayInfo = displayMapping[field];
+                    const detailItem = document.createElement('div');
+                    detailItem.className = 'detail-item';
+                    detailItem.innerHTML = `
+                        <div class="detail-label">${displayInfo.label}</div>
+                        <div class="detail-value">${displayInfo.format(userData[field])}</div>
+                    `;
+                    userDetailsGrid.appendChild(detailItem);
+                }
+            });
+        }
+
+        // Fungsi untuk update contact info di "What's Next" section
+        function updateContactInfo(userData) {
+            if (userData.email) {
+                document.getElementById('userEmail').textContent = userData.email;
+            }
+            if (userData.mobileNumber) {
+                document.getElementById('userMobile').textContent = userData.mobileNumber;
+            }
+            if (userData.city) {
+                document.getElementById('userCity').textContent = userData.city;
+            }
+        }
+
+        // Fungsi untuk download ticket (simulasi)
+        function downloadTicket() {
+            const savedData = localStorage.getItem('registrationData');
+            
+            if (savedData) {
+                const userData = JSON.parse(savedData);
+                
+                Swal.fire({
+                    title: 'Generating Your Ticket...',
+                    text: 'Please wait while we create your exclusive event ticket',
+                    icon: 'info',
+                    showConfirmButton: false,
+                    allowOutsideClick: false,
+                    didOpen: () => {
+                        Swal.showLoading();
+                    }
+                });
+
+                setTimeout(() => {
+                    Swal.fire({
+                        title: 'Ticket Ready!',
+                        text: 'Your ticket has been generated successfully',
+                        icon: 'success',
+                        showClass: {
+                            popup: 'animate__animated animate__fadeInDown'
+                        },
+                        hideClass: {
+                            popup: 'animate__animated animate__fadeOutDown'
+                        },
+                        confirmButtonColor: '#667eea',
+                        confirmButtonText: 'Download PDF'
+                    }).then((result) => {
+                        if (result.isConfirmed) {
+                            const ticketData = {
+                                name: userData.fullName || 'Guest',
+                                email: userData.email || 'N/A',
+                                mobile: userData.mobileNumber || 'N/A',
+                                event: 'Exclusive VIP Event',
+                                date: 'December 15, 2024',
+                                time: '7:00 PM - 11:00 PM',
+                                venue: 'Grand Ballroom, Luxury Hotel & Resort'
+                            };
+                            
+                            localStorage.setItem('ticketData', JSON.stringify(ticketData));
+                            
+                            Swal.fire({
+                                title: 'Download Started!',
+                                text: 'Your ticket is being downloaded',
+                                icon: 'success',
+                                showClass: {
+                                    popup: 'animate__animated animate__fadeInDown'
+                                },
+                                hideClass: {
+                                    popup: 'animate__animated animate__fadeOutDown'
+                                },
+                                timer: 2000,
+                                timerProgressBar: true
+                            });
+                        }
+                    });
+                }, 2000);
+            } else {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'No Data Found',
+                    text: 'Cannot generate ticket without registration data',
+                    showClass: {
+                        popup: 'animate__animated animate__fadeInDown'
+                    },
+                    hideClass: {
+                        popup: 'animate__animated animate__fadeOutDown'
+                    },
+                    confirmButtonColor: '#667eea'
+                });
+            }
+        }
+    </script>
+</body>
+</html>
